@@ -1,8 +1,10 @@
 package com.nisum.tech.application.domain.model;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,26 +14,27 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
-@Value
-@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
-    String name;
+    private String name;
 
     @Column
-    String email;
+    private String email;
 
     @Column
-    String password;
+    private String password;
 
-    @OneToMany(mappedBy = "user")
-    List<Phone> phones;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public List<Phone> phones;
 
 }

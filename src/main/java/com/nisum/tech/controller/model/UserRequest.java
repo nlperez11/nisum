@@ -36,27 +36,25 @@ public class UserRequest {
         private String countryCode;
 
         public Phone toDomain() {
-            return Phone
-                    .builder()
-                    .number(number)
-                    .cityCode(cityCode)
-                    .countryCode(countryCode)
-                    .build();
+            return new Phone(
+                    null,
+                    number,
+                    cityCode,
+                    countryCode,
+                    null
+            );
         }
 
     }
 
     public User toDomain() {
-        return User
-                .builder()
-                .name(name)
-                .email(email)
-                .password(password)
-                .phones(phones
-                        .stream()
-                        .map(PhoneRequest::toDomain)
-                        .collect(Collectors.toList())
-                )
-                .build();
+        return new User(
+                null,
+                name,
+                email,
+                password,
+                phones.stream().map(PhoneRequest::toDomain).collect(Collectors.toList())
+        );
     }
+
 }

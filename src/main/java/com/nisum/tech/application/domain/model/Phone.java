@@ -1,36 +1,40 @@
 package com.nisum.tech.application.domain.model;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Value
-@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table
+@Table(name = "phone")
 public class Phone {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
-    String number;
+    private String number;
 
     @Column
-    String cityCode;
+    private String cityCode;
 
     @Column
-    String countryCode;
+    private String countryCode;
 
-    @ManyToMany(mappedBy = "phones")
-    User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
 }
