@@ -49,7 +49,7 @@ public class ErrorHandler {
 
     @Data
     @AllArgsConstructor
-    private static class Response {
+    public static class Response {
 
         @JsonProperty("mensaje")
         private String message;
