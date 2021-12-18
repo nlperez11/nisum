@@ -7,26 +7,27 @@ import com.nisum.tech.application.service.UserService;
 import com.nisum.tech.config.AppConfig;
 import com.nisum.tech.config.exception.EmailDupedException;
 import com.nisum.tech.config.exception.PasswordFormatException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private JwtAdapter jwtAdapter;
+    private final JwtAdapter jwtAdapter;
 
     @Autowired
-    private AppConfig config;
+    private final AppConfig config;
 
     @Override
     public User createUser(User user) throws EmailDupedException, PasswordFormatException {
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
         try {
             return userRepository.save(user);
-        } catch (DataIntegrityViolationException  ex) {
+        } catch (DataIntegrityViolationException ex) {
             throw new EmailDupedException();
         }
     }
@@ -52,10 +53,6 @@ public class UserServiceImpl implements UserService {
         if (!matcher.matches()) {
             throw new PasswordFormatException();
         }
-    }
-
-    public List<User> findAll() {
-        return userRepository.findAll();
     }
 
 }

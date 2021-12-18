@@ -34,7 +34,7 @@ public class UserRequest {
     private List<PhoneRequest> phones;
 
     @Data
-    private static class PhoneRequest {
+    public static class PhoneRequest {
 
         @JsonProperty("numero")
         private String number;
