@@ -5,19 +5,29 @@ import com.nisum.tech.application.domain.model.Phone;
 import com.nisum.tech.application.domain.model.User;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Data
 public class UserRequest {
 
     @JsonProperty("nombre")
+    @NotBlank
     private String name;
 
     @JsonProperty("correo")
+    @NotBlank
+    @Pattern(
+            message = "Incorrect email format",
+            regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
+    )
     private String email;
 
     @JsonProperty("contraseña")
+    @NotBlank
     private String password;
 
     @JsonProperty("telefonos")
@@ -37,11 +47,9 @@ public class UserRequest {
 
         public Phone toDomain() {
             return new Phone(
-                    null,
                     number,
                     cityCode,
-                    countryCode,
-                    null
+                    countryCode
             );
         }
 
@@ -49,7 +57,7 @@ public class UserRequest {
 
     public User toDomain() {
         return new User(
-                null,
+                UUID.randomUUID().toString(),
                 name,
                 email,
                 password,

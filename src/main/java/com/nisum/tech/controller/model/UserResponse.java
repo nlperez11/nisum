@@ -5,6 +5,7 @@ import com.nisum.tech.application.domain.model.User;
 import lombok.Builder;
 import lombok.Value;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,10 +13,14 @@ import java.util.stream.Collectors;
 @Builder
 public class UserResponse {
 
-    Long id;
+    String id;
     String name;
     String email;
     String password;
+    LocalDateTime created;
+    LocalDateTime modified;
+    boolean isActive;
+    String token;
     List<PhoneResponse> phones;
 
     @Value
@@ -46,6 +51,10 @@ public class UserResponse {
                 .name(user.getName())
                 .email(user.getEmail())
                 .password(user.getPassword())
+                .created(user.getCreated())
+                .modified(user.getModified())
+                .isActive(user.isActive())
+                .token(user.getAccessToken())
                 .phones(user.getPhones().stream().map(PhoneResponse::of).collect(Collectors.toList()))
                 .build();
     }
