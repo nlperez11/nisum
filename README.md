@@ -30,6 +30,6 @@ The default base api is http://localhost:8080
 ## Api Documentation
 
 ### This app use swagger for the documentation
-When the app is running, see the app api documentation for test here : http://localhost:8080/swagger-ui/index.html#/
+When the app is running, see the api documentation for test here : http://localhost:8080/swagger-ui/index.html#/
 ## Note
 For configure the regex password validation, see the properties file
